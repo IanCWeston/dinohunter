@@ -32,3 +32,5 @@ apt-get update && apt-get install filebeat
 
 # Return to user
 exit
+
+# Test comment
