@@ -5,7 +5,6 @@
 1. Create AMI (Packer)
     * Pass shell script to configure AMI
     * Add unique tag/s
-    * Need to decide on base AMI distro (Ubuntu 18.04 LTS)
     * Shell script
       * Needs to update repos & install upgrades
       * Install ELK & Velociraptor from public location
