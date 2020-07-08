@@ -24,7 +24,7 @@ data "aws_ami" "packer-elk" {
 }
 
 resource "aws_instance" "elk-server" {
-    ami = "${data.aws_ami.packer-elk.id}"
+    ami = data.aws_ami.packer-elk.id
     instance_type = var.server-size # Default t2.large
 
     tags = {
