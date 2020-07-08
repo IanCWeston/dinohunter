@@ -13,15 +13,30 @@ resource "aws_security_group" "allow-elk-server" {
 
     ingress {
         description  = "Allow SSH"
-        from_port = 22
+        from_port   = local.ssh_port
+        to_port     = local.ssh_port
+        protocol    = local.tcp_protocol
+        cidr_blocks = local.all_ips
+    }
+    
+    ingress {
+        description  = "Allow Kibana Web"
+        from_port   = local.kibana_web_port
+        to_port     = local.kibana_web_port
+        protocol    = local.tcp_protocol
+        cidr_blocks = local.all_ips
     }
 
     
     egress {
-        from_port   = 0
-        to_port     = 0
-        protocol    = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
+        from_port   = local.any_port
+        to_port     = local.any_port
+        protocol    = local.any_protocol
+        cidr_blocks = local.all_ips
+    }
+
+    tags = {
+        Name = "ELK_server"
     }
 
 }
@@ -43,10 +58,12 @@ data "aws_ami" "packer-elk" {
     owners = ["self"]
 }
 
-# Create instance from Packer AMI and provide tag Name: ELK-Server
+# Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
 resource "aws_instance" "elk-server" {
     ami = data.aws_ami.packer-elk.id
     instance_type = var.server-size # Default t2.large
+
+    vpc_security_group_ids = [aws_security_group.allow-elk-server.id]
 
     tags = {
         Name = "ELK-Server"
