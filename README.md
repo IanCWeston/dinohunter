@@ -31,11 +31,7 @@
 
 5. Output public DNS address/s of created server/s (Terraform)
 
-6. *Automate steps with shell script?  Probably not recommended?*
-
 Need way to delete the AMI after usage
-
-Use `force_deregister` option to avoid Packer AMI name conflicts
 
 ## Things to Add later
 
