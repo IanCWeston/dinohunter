@@ -10,3 +10,11 @@ variable "server-size" {
     description = "The AWS instance type of the ELK server"
 }
 
+locals {
+    ssh_port = 22
+    kibana_web_port = 5601
+    any_port = 0
+    any_protocol = -1
+    tcp_protocol = "tcp"
+    all_ips = ["0.0.0.0/0"]
+}
