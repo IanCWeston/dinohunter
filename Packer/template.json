@@ -24,7 +24,12 @@
             },
             "instance_type": "t2.large",
             "ssh_username": "ubuntu",
-            "ami_name": "packer-ELK-VR {{timestamp}}"
+            "ami_name": "packer-elk-{{timestamp}}",
+            "tags": {
+                "Base_AMI_Name": "{{ .SourceAMIName }}",
+                "OS_Version": "Ubuntu",
+                "PackerProvisioned": true
+            }
         }
     ],
     "provisioners": [
