@@ -4,6 +4,7 @@ terraform {
 
 provider "aws" {
     region = var.aws-region # Default us-east-1
+    profile                 = ""
 }
 
 # Security group for the ELK Server
@@ -55,7 +56,7 @@ data "aws_ami" "packer-elk" {
         values = ["true"]
     }
     
-    owners = ["self"]
+    owners  = ["self"]
 }
 
 # Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
