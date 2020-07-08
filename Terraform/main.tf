@@ -12,12 +12,12 @@ data "aws_ami" "packer-elk" {
 
     filter {
         name = "name"
-        values = "packer-elk*"
+        values = ["packer-elk*"]
     }
 
     filter {
         name = "tag:PackerProvisioned"
-        values = true
+        values = ["true"]
     }
     
     owners = ["self"]
@@ -31,3 +31,4 @@ resource "aws_instance" "elk-server" {
         Name = "ELK-Server"
     }
 }
+
