@@ -69,6 +69,10 @@ resource "aws_instance" "elk-server" {
     tags = {
         Name = "ELK-Server"
     }
-}
 
+# Add custom bootstrap script to configure Kibana
+    provisioner "remote-exec" {
+        script = "./app_config.sh"
+    }
+}
 
