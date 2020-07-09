@@ -92,7 +92,7 @@ The goal of this project is to aid Incident Responders with large scale investig
     {
       "Effect": "Allow",
       "Action": [
-        "ec2:PLACEHOLDER
+        "ec2:PLACEHOLDER"
       ],
       "Resource": "*"
     }
