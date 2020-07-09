@@ -101,7 +101,7 @@ The goal of this project is to aid Incident Responders with large scale investig
 ```
 ## Usage Instructions
 ### Packer
-On occaision (every month should be enough) run the following packer command to build a new AMI so that all software is up to date. Packer will install Elasticsearch, Kibana, Filebeat, and 
+On occaision (every month should be enough) run the following packer command to build a new AMI so that all software is up to date. Packer will install Elasticsearch, Kibana, Filebeat, and download Velociraptor. It will also update any software that needs updating.
 
 `packer build ./template.json`
 
