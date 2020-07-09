@@ -35,7 +35,10 @@
     "provisioners": [
         {
             "type": "shell",
-            "script": "elk-install.sh"
+            "scripts": [
+                "elk-install.sh",
+                "vr-install.sh"
+            ]
         }
     ]
 }
