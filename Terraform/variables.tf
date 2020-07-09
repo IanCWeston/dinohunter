@@ -1,3 +1,9 @@
+variable "public_key" {
+    type        = string
+    default     = ""
+    description = "Public key for ELK server"
+}
+
 variable "aws-cli-profile" {
     type        = string
     default     = ""
