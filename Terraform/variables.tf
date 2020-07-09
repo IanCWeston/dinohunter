@@ -1,7 +1,7 @@
 variable "aws-cli-profile" {
     type        = string
     default     = ""
-    description = "AWS CLI profile to authenticate Terraform with"
+    description = "AWS CLI profile used to authenticate Terraform"
 }
 
 variable "aws-region" {
