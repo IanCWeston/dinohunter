@@ -1,17 +1,17 @@
 # aws-elk-velociraptor
 
+[![CodeFactor](https://www.codefactor.io/repository/github/iancweston/aws-elk-velociraptor/badge)](https://www.codefactor.io/repository/github/iancweston/aws-elk-velociraptor)
+
 Quickly spin up temporary ELK/Velociraptor servers in AWS for incident responce
 
 *Please note: This project is still in pre-release and may not behave as expected*
 
 ## Prerequisites
 
-* Packer installed and added to PATH
-* Terraform installed and added to PATH
+* [Packer](https://www.packer.io/downloads) installed and added to PATH
+* [Terraform](https://www.terraform.io/downloads.html) installed and added to PATH
 
 ## Usage Instructions
-
-
 
 ### Minimum AWS IAM Permissions Required
 
