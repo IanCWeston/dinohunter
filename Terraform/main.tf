@@ -82,7 +82,7 @@ resource "aws_key_pair" "elk-key" {
 
 # Elastic IP for server for stability
 resource "aws_eip" "elk_ip" {
-    instance = aws_instance.elk_vr_server.id
+    instance = aws_instance.elk_vr-server.id
     vpc      = true
 }
 
