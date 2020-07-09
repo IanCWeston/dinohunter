@@ -28,9 +28,14 @@ Workflow Process
 
 5. Output public DNS address/s of created server/s (Terraform)
 
+6. Install script that can configure Kibana server.host and Security
+7. Install script that can configure VR server
+8. Docker and or config script for VR Agent
+
 Need way to delete the AMI after usage
 
 Things to Add later
 
 * Security for Kibana
 * Add Filebeat for O365 queries
+* Create an automated script for running all of this (python)
