@@ -8,7 +8,7 @@ provider "aws" {
 }
 
 # Security group for the ELK Server
-resource "aws_security_group" "allow-elk-server" {
+resource "aws_security_group" "allow-elk_vr-server" {
     name = "ELK_server"
     description = "Allow ELK/SSH ports inbound"
 
@@ -59,14 +59,14 @@ data "aws_ami" "packer-elk" {
 }
 
 # Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
-resource "aws_instance" "elk-server" {
+resource "aws_instance" "elk_vr-server" {
     ami = data.aws_ami.packer-elk.id
     instance_type = var.server-size # Default t2.large
 
-    vpc_security_group_ids = [aws_security_group.allow-elk-server.id]
+    vpc_security_group_ids = [aws_security_group.allow-elk_vr-server.id]
 
     tags = {
-        Name = "ELK-Server"
+        Name = "ELK-VR-Server"
     }
 
 # Add custom bootstrap script to configure Kibana
