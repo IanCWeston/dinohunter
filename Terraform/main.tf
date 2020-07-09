@@ -45,6 +45,7 @@ resource "aws_security_group" "allow-elk-server" {
 # Call for Packer created AMI
 data "aws_ami" "packer-elk" {
     most_recent = true
+    owners  = ["self"]
 
     filter {
         name = "name"
@@ -53,10 +54,8 @@ data "aws_ami" "packer-elk" {
 
     filter {
         name = "tag:PackerProvisioned"
-        values = ["true"]
-    }
-    
-    owners  = ["self"]
+        values = ["1"]
+    }  
 }
 
 # Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
