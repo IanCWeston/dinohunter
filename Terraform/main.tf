@@ -59,6 +59,12 @@ data "aws_ami" "packer-elk" {
     }  
 }
 
+# Elastic IP for server for stability
+resource "aws_eip" "elk_ip" {
+    instance = "${aws_instance.elk_vr_server.id}"
+    vpc      = true
+}
+
 # Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
 resource "aws_instance" "elk_vr-server" {
     ami = data.aws_ami.packer-elk.id
