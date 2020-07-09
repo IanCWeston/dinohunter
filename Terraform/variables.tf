@@ -1,3 +1,9 @@
+variable "aws-cli-profile" {
+    type        = string
+    default     = ""
+    description = "AWS CLI profile to authenticate Terraform with"
+}
+
 variable "aws-region" {
     type        = string
     default     = "us-east-1"
