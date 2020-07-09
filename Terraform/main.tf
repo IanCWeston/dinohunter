@@ -37,7 +37,8 @@ resource "aws_security_group" "allow-elk_vr-server" {
     }
 
     tags = {
-        Name = "ELK_server"
+        Name = "ELK_VR_server"
+        Terraform = true
     }
 
 }
@@ -67,10 +68,10 @@ resource "aws_instance" "elk_vr-server" {
 
     tags = {
         Name = "ELK-VR-Server"
+        Terraform = true
     }
 
 # Add custom bootstrap script to configure Kibana
     user_data = file("./user-data.sh")
 
 }
-
