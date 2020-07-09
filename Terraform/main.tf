@@ -58,20 +58,21 @@ resource "aws_security_group" "allow-elk_vr-server" {
 
 }
 
-# Call for Packer created AMI
-data "aws_ami" "packer-elk" {
+# Call for latest Ubuntu 18.04 AMI
+data "aws_ami" "ubuntu" {
     most_recent = true
-    owners  = ["self"]
 
     filter {
-        name = "name"
-        values = ["packer-elk*"]
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
     }
 
     filter {
-        name = "tag:PackerProvisioned"
-        values = ["1"]
-    }  
+    name   = "virtualization-type"
+    values = ["hvm"]
+    }
+
+    owners = ["099720109477"]
 }
 
 # Key pair for instance
@@ -88,7 +89,7 @@ resource "aws_eip" "elk_ip" {
 
 # Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
 resource "aws_instance" "elk_vr-server" {
-    ami = data.aws_ami.packer-elk.id
+    ami = data.aws_ami.ubuntu.id
     key_name = aws_key_pair.elk-key.key_name
     instance_type = var.server-size # Default t2.large
 
