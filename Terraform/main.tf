@@ -74,6 +74,12 @@ data "aws_ami" "packer-elk" {
     }  
 }
 
+# Key pair for instance
+resource "aws_key_pair" "elk-key" {
+    key_name   = "ELK-Key"
+    public_key = var.pub_key
+}
+
 # Elastic IP for server for stability
 resource "aws_eip" "elk_ip" {
     instance = aws_instance.elk_vr_server.id
@@ -83,6 +89,7 @@ resource "aws_eip" "elk_ip" {
 # Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
 resource "aws_instance" "elk_vr-server" {
     ami = data.aws_ami.packer-elk.id
+    key_name = aws_key_pair.elk-key.key_name
     instance_type = var.server-size # Default t2.large
 
     vpc_security_group_ids = [aws_security_group.allow-elk_vr-server.id]
