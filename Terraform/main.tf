@@ -70,7 +70,7 @@ resource "aws_instance" "elk-server" {
     }
 
 # Add custom bootstrap script to configure Kibana
-    user_data = file("./user_data.sh")
+    user_data = file("./user-data.sh")
 
 }
 
