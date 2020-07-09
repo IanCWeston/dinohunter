@@ -17,10 +17,12 @@ variable "server-size" {
 }
 
 locals {
-    ssh_port = 22
-    kibana_web_port = 5601
-    any_port = 0
-    any_protocol = -1
-    tcp_protocol = "tcp"
-    all_ips = ["0.0.0.0/0"]
+    ssh_port                = 22
+    kibana_web_port         = 5601
+    velociraptor_web_port   = 8889
+    velociraptor_agent_port = 8000
+    any_port                = 0
+    any_protocol            = -1
+    tcp_protocol            = "tcp"
+    all_ips                 = ["0.0.0.0/0"]
 }
