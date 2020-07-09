@@ -5,9 +5,9 @@ Workflow Process
     * Add unique tag/s
     * Shell script
       * Needs to update repos & install upgrades
-      * Install ELK & Velociraptor from public location
-      * Set ELK & VR services to auto-start
-      * Start ELK & VR services
+      * Install ELK & Download Velociraptor from public location
+      * Set ELK services to auto-start
+      * Start ELK services
 
 2. Create Network (Terraform)
     * VPC
@@ -22,10 +22,9 @@ Workflow Process
 
 4. Create Security group for external access (Terraform)
    * SSH
-   * ICMP
-   * 5601
-   * 8889
-   * 8000
+   * 5601 - Kibana GUI
+   * 8889 - Velociraptor GUI
+   * 8000 - Velociraptor client/server comms
 
 5. Output public DNS address/s of created server/s (Terraform)
 
