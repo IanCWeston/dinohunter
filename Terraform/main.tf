@@ -26,29 +26,13 @@ resource "aws_security_group" "allow-elk_vr-server" {
     }
     
     ingress {
-        description  = "Allow Kibana Web"
-        from_port   = local.kibana_web_port
-        to_port     = local.kibana_web_port
-        protocol    = local.tcp_protocol
-        cidr_blocks = local.all_ips
-    }
-
-    ingress {
-        description  = "Allow Velociraptor Web"
-        from_port   = local.velociraptor_web_port
-        to_port     = local.velociraptor_web_port
-        protocol    = local.tcp_protocol
-        cidr_blocks = local.all_ips
-    }
-
-    ingress {
         description  = "Allow Velociraptor Agent"
         from_port   = local.velociraptor_agent_port
         to_port     = local.velociraptor_agent_port
         protocol    = local.tcp_protocol
         cidr_blocks = local.all_ips
     }
-
+    
     egress {
         from_port   = local.any_port
         to_port     = local.any_port

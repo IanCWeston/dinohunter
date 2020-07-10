@@ -8,9 +8,7 @@ The goal of this project is to aid Incident Responders with large scale investig
 
 ## To do list
 
-- [x] Create Packer script to generate AMI
-- [ ] Create Terraform script that uses the generated AMI
-- [ ] Automate the configuration of Kibana Authentication/Security
+- [X] Create Terraform script that launches the infrastructure
 - [ ] Automate the Velociraptor server configuration
 - [ ] Automate the Velociraptor client configuration
 - [ ] Automate the Filebeat module configuration for Office365
@@ -39,58 +37,10 @@ The goal of this project is to aid Incident Responders with large scale investig
 ## Prerequisites
 
 - The following software installed on your comptuer:
-  - [Packer](https://www.packer.io/downloads) installed and added to PATH
   - [Terraform](https://www.terraform.io/downloads.html) installed and added to PATH
- - AWS IAM User with the below minimum permissions for Packer and Terraform
+ - AWS IAM User with the below minimum permissions for Terraform
 
-### Packer Minimum Permissions
 
- ```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:AttachVolume",
-        "ec2:AuthorizeSecurityGroupIngress",
-        "ec2:CopyImage",
-        "ec2:CreateImage",
-        "ec2:CreateKeypair",
-        "ec2:CreateSecurityGroup",
-        "ec2:CreateSnapshot",
-        "ec2:CreateTags",
-        "ec2:CreateVolume",
-        "ec2:DeleteKeyPair",
-        "ec2:DeleteSecurityGroup",
-        "ec2:DeleteSnapshot",
-        "ec2:DeleteVolume",
-        "ec2:DeregisterImage",
-        "ec2:DescribeImageAttribute",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstances",
-        "ec2:DescribeInstanceStatus",
-        "ec2:DescribeRegions",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSnapshots",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeTags",
-        "ec2:DescribeVolumes",
-        "ec2:DetachVolume",
-        "ec2:GetPasswordData",
-        "ec2:ModifyImageAttribute",
-        "ec2:ModifyInstanceAttribute",
-        "ec2:ModifySnapshotAttribute",
-        "ec2:RegisterImage",
-        "ec2:RunInstances",
-        "ec2:StopInstances",
-        "ec2:TerminateInstances"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
 
 ### Terraform Minimum Permissions
 
@@ -108,24 +58,27 @@ The goal of this project is to aid Incident Responders with large scale investig
   ]
 }
 ```
-
 ## Usage Instructions
-
-### Packer
-
-On occaision (every month should be enough) run the following packer command to build a new AMI so that all software is up to date. Packer will install Elasticsearch, Kibana, Filebeat, and download Velociraptor. It will also update any software that needs updating.
-
-`packer build ./template.json`
 
 ### Terraform
 
 To stand up new infrastructure use the following commands:
+- Change into the terraform directory and execute the following commands:
 
-- Initialize the directory with - `terraform init` 
+  - Initialize the directory with - `terraform init` 
 
-- Make sure everything looks good with - `terraform plan`
+  - Make sure everything looks good with - `terraform plan`
 
-- Create the infrastructure with - `terraform apply`
+  - Create the infrastructure with - `terraform apply`
+  - Note the dns name that is listed when it completes
+
+### Connect to the new server
+- Change directory back to the main directory
+- Execute - `./connect.sh`
+- Enter in the dns name when prompted
+- As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
+  - [Kibana](http://localhost:5601)
+  - [Velociraptor](https://localhost:8889)
 
 ### Configure Velociraptor Server
 

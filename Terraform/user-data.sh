@@ -24,8 +24,6 @@ service elasticsearch start
 apt-get update && apt-get install kibana
 /bin/systemctl daemon-reload
 /bin/systemctl enable kibana.service
-line=$(echo "server.host:" \"0.0.0.0\")
-echo $line >> /etc/kibana/kibana.yml
 service kibana start
 
 ###########################

@@ -24,8 +24,6 @@ variable "server-size" {
 
 locals {
     ssh_port                = 22
-    kibana_web_port         = 5601
-    velociraptor_web_port   = 8889
     velociraptor_agent_port = 8000
     any_port                = 0
     any_protocol            = -1
