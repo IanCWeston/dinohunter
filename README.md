@@ -15,7 +15,7 @@ The goal of this project is to aid Incident Responders with large scale investig
 
 ## Velociraptor
 
-[Velociraptor](https://www.velocidex.com/) is a Digital Forensics and Incident Response (DFIR) tool that allows investigators to "dig deeper" at scale. 
+[Velociraptor](https://www.velocidex.com/) is a Digital Forensics and Incident Response (DFIR) tool that allows investigators to "dig deeper" at scale.
 
 ### Velociraptor Benefits
 
@@ -38,9 +38,7 @@ The goal of this project is to aid Incident Responders with large scale investig
 
 - The following software installed on your comptuer:
   - [Terraform](https://www.terraform.io/downloads.html) installed and added to PATH
- - AWS IAM User with the below minimum permissions for Terraform
-
-
+  - AWS IAM User with the below minimum permissions for Terraform
 
 ### Terraform Minimum Permissions
 
@@ -58,14 +56,16 @@ The goal of this project is to aid Incident Responders with large scale investig
   ]
 }
 ```
+
 ## Usage Instructions
 
 ### Terraform
 
 To stand up new infrastructure use the following commands:
+
 - Change into the terraform directory and execute the following commands:
 
-  - Initialize the directory with - `terraform init` 
+  - Initialize the directory with - `terraform init`
 
   - Make sure everything looks good with - `terraform plan`
 
@@ -73,6 +73,7 @@ To stand up new infrastructure use the following commands:
   - Note the dns name that is listed when it completes
 
 ### Connect to the new server
+
 - Change directory back to the main directory
 - Execute - `./connect.sh`
 - Enter in the dns name when prompted
