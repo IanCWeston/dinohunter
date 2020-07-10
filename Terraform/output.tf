@@ -5,5 +5,5 @@ output "elk-dns" {
 
 output "server-key-file" {
     value       = tls_private_key.elk-server-key.private_key_pem
-    description = "SSH key file for ELK server"
+    description = "SSH key for ELK server"
 }
