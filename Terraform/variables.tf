@@ -1,9 +1,3 @@
-variable "pub_key" {
-    type        = string
-    default     = ""
-    description = "Public key for ELK server"
-}
-
 variable "aws-cli-profile" {
     type        = string
     default     = ""
@@ -24,8 +18,6 @@ variable "server-size" {
 
 locals {
     ssh_port                = 22
-    kibana_web_port         = 5601
-    velociraptor_web_port   = 8889
     velociraptor_agent_port = 8000
     any_port                = 0
     any_protocol            = -1
