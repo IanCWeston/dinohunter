@@ -79,7 +79,7 @@ To stand up new infrastructure use the following commands:
 - As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
   - [Kibana](http://localhost:5601)
   - [Velociraptor](https://localhost:8889)
-- Once connected you can do an `ls` the directory /home/ubuntu to quickly see the status of the installation. Wait to connect to the front ends until you see "Installation_Complete.txt" in the directory.
+- Once connected you can do an `ls` in `/home/ubuntu` to quickly see the status of the installation. Wait to connect to the front ends until you see ```Installation_Complete.txt``` in the directory.
 
 ### Configure Velociraptor Server
 
