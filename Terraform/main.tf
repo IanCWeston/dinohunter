@@ -9,6 +9,7 @@ terraform {
 provider "aws" {
     region      = var.aws-region # Default us-east-1
     profile     = var.aws-cli-profile # Defaults to empty string
+    version = "~> 2.69"
 }
 
 # Security group for the ELK Server
