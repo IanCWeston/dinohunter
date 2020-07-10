@@ -90,7 +90,7 @@ resource "aws_instance" "elk_vr-server" {
     }
 
 # Add custom bootstrap script to install and configure applications
-    user_data = file("./user-data.sh")
+    user_data = file("../config/user-data.sh")
 
 }
 
