@@ -40,9 +40,12 @@ apt-get update && apt-get install filebeat
 ###########################
 # Velociraptor
 ###########################
-mv /home/ubuntu/Installing_Filebeat.txt /home/ubuntu/Downloading_Velociraptor.txt
+mv /home/ubuntu/Installing_Filebeat.txt /home/ubuntu/Installing_Velociraptor.txt
 cd /opt
 wget https://github.com/Velocidex/velociraptor/releases/download/v0.4.5/velociraptor-v0.4.5-linux-amd64
 chmod +x velociraptor-v0.4.5-linux-amd64
+/opt/velociraptor-v0.4.5-linux-amd64 config generate >> /opt/server.config.yaml
+/opt/velociraptor-v0.4.5-linux-amd64 --config server.config.yaml user add admin --role=administrator admin
+/opt/velociraptor-v0.4.5-linux-amd64 --config /opt/server.config.yaml frontend &
 
-mv /home/ubuntu/Downloading_Velociraptor.txt /home/ubuntu/Installation_Complete.txt
+mv /home/ubuntu/Installing_Velociraptor.txt /home/ubuntu/Installation_Complete.txt

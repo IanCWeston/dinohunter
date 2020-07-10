@@ -9,7 +9,8 @@ The goal of this project is to aid Incident Responders with large scale investig
 ## To do list
 
 - [X] Create Terraform script that launches the infrastructure
-- [ ] Automate the Velociraptor server configuration
+- [X] Automate the Velociraptor server configuration
+- [ ] Create a python or go installer to launch infrastructure, connect to infrastructure, and destroy infrastructure
 - [ ] Automate the Velociraptor client configuration
 - [ ] Automate the Filebeat module configuration for Office365
 
@@ -78,8 +79,8 @@ To stand up new infrastructure use the following commands:
 - Execute - `./connect.sh`
 - Enter in the dns name when prompted
 - As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
-  - [Kibana](http://localhost:5601)
-  - [Velociraptor](https://localhost:8889)
+  - [Kibana](http://localhost:5601 "http://localhost:5601")
+  - [Velociraptor](https://localhost:8889 "https://localhost:8889")
 - Once connected you can do an `ls` in `/home/ubuntu` to quickly see the status of the installation. Wait to connect to the front ends until you see ```Installation_Complete.txt``` in the directory.
 
 ### Configure Velociraptor Server
