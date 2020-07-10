@@ -122,3 +122,17 @@ resource "tls_private_key" "elk-server-key" {
     algorithm   = "RSA"
     rsa_bits = 4096
 }
+
+###################
+# Local Provider
+###################
+
+provider "local" {
+    version = "1.4.0"
+}
+
+resource "local_file" "pem-key" {
+    sensitive_content = tls_private_key.elk-server-key.private_key_pem
+    filename = "./elk-server.pem"
+    file_permission = "0400"
+}
