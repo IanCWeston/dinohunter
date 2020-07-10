@@ -64,19 +64,19 @@ data "aws_ami" "ubuntu" {
     owners = ["099720109477"]
 }
 
-# Key pair for instance
+# Key pair for instance using the generated SSH key
 resource "aws_key_pair" "aws-elk-key" {
     key_name   = "ELK-Key"
     public_key = tls_private_key.elk-server-key.public_key_openssh
 }
 
-# Elastic IP for server for stability
+# Create Elastic IP for server
 resource "aws_eip" "elk_ip" {
     instance = aws_instance.elk_vr-server.id
     vpc      = true
 }
 
-# Create instance from Packer AMI, provide tag Name: ELK-Server and attached to new security group
+# Create instance from Ubuntu AMI, add tags and link key/security group
 resource "aws_instance" "elk_vr-server" {
     ami = data.aws_ami.ubuntu.id
     key_name = aws_key_pair.aws-elk-key.key_name
@@ -102,6 +102,7 @@ provider "tls" {
     version = "2.1.1"
 }
 
+# Generate a new SSH private key
 resource "tls_private_key" "elk-server-key" {
     algorithm   = "RSA"
     rsa_bits = 4096
@@ -115,6 +116,7 @@ provider "local" {
     version = "1.4.0"
 }
 
+# Generate a .pem file with the SSH private key and 400 permissions
 resource "local_file" "pem-key" {
     sensitive_content = tls_private_key.elk-server-key.private_key_pem
     filename = "./elk-server.pem"
