@@ -1,6 +1,6 @@
-# aws-elk-velociraptor
+# DinoHunter
 
-[![CodeFactor](https://www.codefactor.io/repository/github/iancweston/aws-elk-velociraptor/badge)](https://www.codefactor.io/repository/github/iancweston/aws-elk-velociraptor)
+[![CodeFactor](https://www.codefactor.io/repository/github/iancweston/dinohunter/badge)](https://www.codefactor.io/repository/github/iancweston/dinohunter)
 
 *Please note: This project is still in pre-release and may not behave as expected*
 
