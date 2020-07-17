@@ -119,6 +119,6 @@ provider "local" {
 # Generate a .pem file with the SSH private key and 400 permissions
 resource "local_file" "pem-key" {
     sensitive_content = tls_private_key.dh-server-key.private_key_pem
-    filename = "./dh-server.pem"
+    filename = "../connect/dh-server.pem"
     file_permission = "0400"
 }
