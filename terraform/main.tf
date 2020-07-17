@@ -12,10 +12,10 @@ provider "aws" {
     version = "~> 2.69"
 }
 
-# Security group for the ELK Server
-resource "aws_security_group" "allow-elk_vr-server" {
-    name = "ELK_server"
-    description = "Allow ELK/SSH ports inbound"
+# Security group for the DH Server
+resource "aws_security_group" "allow-dh-server" {
+    name = "DH_server"
+    description = "Allow Velociraptor/SSH ports inbound"
 
     ingress {
         description  = "Allow SSH"
@@ -41,7 +41,7 @@ resource "aws_security_group" "allow-elk_vr-server" {
     }
 
     tags = {
-        Name = "ELK_VR_server"
+        Name = "dh_server"
         Terraform = true
     }
 
@@ -65,27 +65,27 @@ data "aws_ami" "ubuntu" {
 }
 
 # Key pair for instance using the generated SSH key
-resource "aws_key_pair" "aws-elk-key" {
-    key_name   = "ELK-Key"
-    public_key = tls_private_key.elk-server-key.public_key_openssh
+resource "aws_key_pair" "aws-dh-key" {
+    key_name   = "DH-Key"
+    public_key = tls_private_key.dh-server-key.public_key_openssh
 }
 
 # Create Elastic IP for server
-resource "aws_eip" "elk_ip" {
-    instance = aws_instance.elk_vr-server.id
+resource "aws_eip" "dh_ip" {
+    instance = aws_instance.dh-server.id
     vpc      = true
 }
 
 # Create instance from Ubuntu AMI, add tags and link key/security group
-resource "aws_instance" "elk_vr-server" {
+resource "aws_instance" "dh-server" {
     ami = data.aws_ami.ubuntu.id
-    key_name = aws_key_pair.aws-elk-key.key_name
+    key_name = aws_key_pair.aws-dh-key.key_name
     instance_type = var.server-size # Default t2.large
 
-    vpc_security_group_ids = [aws_security_group.allow-elk_vr-server.id]
+    vpc_security_group_ids = [aws_security_group.allow-dh-server.id]
 
     tags = {
-        Name = "ELK-VR-Server"
+        Name = "DH-Server"
         Terraform = true
     }
 
@@ -103,7 +103,7 @@ provider "tls" {
 }
 
 # Generate a new SSH private key
-resource "tls_private_key" "elk-server-key" {
+resource "tls_private_key" "dh-server-key" {
     algorithm   = "RSA"
     rsa_bits = 4096
 }
@@ -118,7 +118,7 @@ provider "local" {
 
 # Generate a .pem file with the SSH private key and 400 permissions
 resource "local_file" "pem-key" {
-    sensitive_content = tls_private_key.elk-server-key.private_key_pem
-    filename = "./elk-server.pem"
+    sensitive_content = tls_private_key.dh-server-key.private_key_pem
+    filename = "./dh-server.pem"
     file_permission = "0400"
 }
