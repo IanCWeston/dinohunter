@@ -122,3 +122,17 @@ resource "local_file" "pem-key" {
     filename = "../connect/dh-server.pem"
     file_permission = "0400"
 }
+
+resource "local_file" "connect-script" {
+    filename = "../connect/connect.sh"
+    content = <<EOT
+#! /bin/bash 
+
+#################################################
+# SSH and Portforward for kibana and velociraptor
+#################################################
+
+echo "Connecting now..."
+ssh -i terraform/dh-server.pem -L 5601:localhost:5601 -L 8889:localhost:8889 ubuntu@${aws_eip.dh_ip.public_dns}
+EOT
+}
