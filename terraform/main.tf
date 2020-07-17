@@ -133,6 +133,6 @@ resource "local_file" "connect-script" {
 #################################################
 
 echo "Connecting now..."
-ssh -i terraform/dh-server.pem -L 5601:localhost:5601 -L 8889:localhost:8889 ubuntu@${aws_eip.dh_ip.public_dns}
+ssh -i dh-server.pem -L 5601:localhost:5601 -L 8889:localhost:8889 ubuntu@${aws_eip.dh_ip.public_dns}
 EOT
 }
