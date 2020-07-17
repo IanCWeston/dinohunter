@@ -7,13 +7,13 @@ variable "aws-cli-profile" {
 variable "aws-region" {
     type        = string
     default     = "us-east-1"
-    description = "Region to launch ELK stack in"
+    description = "Region to launch DH server in"
 }
 
 variable "server-size" {
     type        = string
     default     = "t2.large"
-    description = "The AWS instance type of the ELK server"
+    description = "The AWS instance type of the DH server"
 }
 
 locals {
