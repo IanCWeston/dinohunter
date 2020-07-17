@@ -4,7 +4,7 @@
 
 *Please note: This project is still in pre-release and may not behave as expected*
 
-The goal of this project is to aid Incident Responders with large scale investigations and quickly spin up a temporary Velociraptor and Elastic Stack server in AWS. This solution can act as a "historical" SIEM when no SIEM was present during a compromise. Velociraptor will query the endpoints and can pipe the data into the Elastic Stack for analysis.
+The goal of DinoHunter is to aid Incident Responders with large scale investigations and quickly spin up a temporary Velociraptor and Elastic Stack server in AWS. This solution can act as a "historical" SIEM when no SIEM was present during a compromise. Velociraptor will query the endpoints and can pipe the data into the Elastic Stack for analysis.
 
 ## To do list
 
@@ -81,7 +81,7 @@ To stand up new infrastructure use the following commands:
 - As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
   - [Kibana](http://localhost:5601 "http://localhost:5601")
   - [Velociraptor](https://localhost:8889 "https://localhost:8889")
-- Once connected you can do an `ls` in `/home/ubuntu` to quickly see the status of the installation. Wait to connect to the front ends until you see ```Installation_Complete.txt``` in the directory.
+- Once connected you can `tail -f` the `/home/ubuntu/dh-install.log` file to quickly see the status of the installation. Wait to connect to the front ends until you see ```instalation complete: your server is now ready for use``` in the file.
 
 ### Configure Velociraptor Server
 
