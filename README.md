@@ -76,7 +76,7 @@ To stand up new infrastructure use the following commands:
 ### Connect to the new server
 
 - Change directory back to the main directory
-- Execute - `./connect.sh`
+- Execute - `../connect/connect.sh`
 - Enter in the dns name when prompted
 - As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
   - [Kibana](http://localhost:5601 "http://localhost:5601")
