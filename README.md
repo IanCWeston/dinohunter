@@ -10,7 +10,6 @@ The goal of DinoHunter is to aid Incident Responders with large scale investigat
 
 - [X] Create Terraform script that launches the infrastructure
 - [X] Automate the Velociraptor server configuration
-- [ ] Create a python or go installer to launch infrastructure, connect to infrastructure, and destroy infrastructure
 - [ ] Automate the Velociraptor client configuration
 - [ ] Automate the Filebeat module configuration for Office365
 
@@ -75,9 +74,7 @@ To stand up new infrastructure use the following commands:
 
 ### Connect to the new server
 
-- Change directory back to the main directory
 - Execute - `../connect/connect.sh`
-- Enter in the dns name when prompted
 - As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
   - [Kibana](http://localhost:5601 "http://localhost:5601")
   - [Velociraptor](https://localhost:8889 "https://localhost:8889")
