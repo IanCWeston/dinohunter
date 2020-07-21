@@ -1,41 +1,6 @@
 Workflow Process
 
-1. Create AMI (Packer)
-    * Pass shell script to configure AMI
-    * Add unique tag/s
-    * Shell script
-      * Needs to update repos & install upgrades
-      * Install ELK & Download Velociraptor from public location
-      * Set ELK services to auto-start
-      * Start ELK services
-
-2. Create Network (Terraform)
-    * VPC
-    * Subnet/s
-    * Internet gateway
-    * Route table
-    * Should probably use AWS VPC module
-
-3. Create Server/s with Packer AMI (Terraform)
-    * Filter for AMI tag
-    * Need to determine instance sizing
-
-4. Create Security group for external access (Terraform)
-   * SSH
-   * 5601 - Kibana GUI
-   * 8889 - Velociraptor GUI
-   * 8000 - Velociraptor client/server comms
-
-5. Output public DNS address/s of created server/s (Terraform)
-
-6. Install script that can configure Kibana server.host and Security
-7. Install script that can configure VR server
-8. Docker and or config script for VR Agent
-
-Need way to delete the AMI after usage
-
-Things to Add later
-
-* Security for Kibana
-* Add Filebeat for O365 queries
-* Create an automated script for running all of this (python)
+1. Figure out terraform permissions
+2. Figure out EBS sizing (variable?)
+3. Script for configuring VR Agent (msi docker? - https://github.com/suchja/wix-toolset)
+4. Script for configuring 0365 filebeat

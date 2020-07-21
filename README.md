@@ -78,20 +78,13 @@ To stand up new infrastructure use the following commands:
 - As long as this SSH session is open you can access the Kibana and Velociraptor front ends at:
   - [http://localhost:5601](http://localhost:5601 "Kibana") (Kibana)
   - [https://localhost:8889](https://localhost:8889 "Velociraptor") (Velociraptor)
+    - Default Username and Password is admin:admin
 - Once connected you can `tail -f /home/ubuntu/dh-install.log` to quickly see the status of the installation. Wait to connect to the front ends until you see `instalation complete: your server is now ready for use` in the file.
-
-### Configure Velociraptor Server
-
-Place holder instructions
 
 ### Configure Velociraptor Agents
 
 Place holder instructions
 
-### Configure Velociraptor to send data to the Elasticstack
+### Configure Velociraptor to send data to elasticsearch
 
-Place holder instructions
-
-### Configure Indexes in Kibana
-
-Place holder instructions
+[Directions to send Velociraptor data to elasticsearch](https://www.velocidex.com/blog/medium/2019-12-08-velociraptor-to-elasticsearch-3a9fc02c6568)
