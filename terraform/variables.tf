@@ -13,7 +13,13 @@ variable "aws-region" {
 variable "aws-az" {
     type        = string
     default     = "a"
-    description = "Availability zone to launch DH server in"
+    description = "Availability zone to launch the DH server in"
+
+    validation {
+        # regex(...) fails if it cannot find a match
+        condition     = can(regex("^[a-c]", var.aws-az))
+        error_message = "the aws-az must be a valid AZ in the range of a-c" 
+    }
 }
 
 variable "server-size" {
