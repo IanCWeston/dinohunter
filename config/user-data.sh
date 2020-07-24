@@ -49,7 +49,15 @@ RELEASE=$(curl -s https://api.github.com/repos/Velocidex/velociraptor/releases/l
 wget https://github.com/Velocidex/velociraptor/releases/download/$RELEASE/velociraptor-$RELEASE-linux-amd64
 chmod +x velociraptor-$RELEASE-linux-amd64
 /opt/velociraptor-$RELEASE-linux-amd64 config generate >> /opt/server.config.yaml
-/opt/velociraptor-$RELEASE-linux-amd64 --config server.config.yaml user add admin --role=administrator admin
+
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` 
+URL=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-hostname`
+
+mv /opt/server.config.yaml /opt/server.config.yaml.bak
+sed "s/https:\/\/localhost:8000\//https:\/\/$URL:8000\//" /opt/server.config.yaml.bak >> /opt/server.config.yaml
+sed "/filename_darwin: \/var\/tmp\/Velociraptor_Buffer.bin/q" /opt/server.config.yaml >> /opt/client.config.yaml
+
+/opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml user add admin --role=administrator admin
 /opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml frontend &
 
 echo "$(date +'%b %d %T'): instalation complete: your server is now ready for use" >> /home/ubuntu/dh-install.log
