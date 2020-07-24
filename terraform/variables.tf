@@ -7,7 +7,13 @@ variable "aws-cli-profile" {
 variable "aws-region" {
     type        = string
     default     = "us-east-1"
-    description = "Region to launch DH server in"
+    description = "Region to launch DH assets in"
+}
+
+variable "aws-az" {
+    type        = string
+    default     = "a"
+    description = "Availability zone to launch DH server in"
 }
 
 variable "server-size" {
