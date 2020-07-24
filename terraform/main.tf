@@ -103,7 +103,7 @@ resource "aws_instance" "dh-server" {
 
     tags = {
         Name = "DH-Server"
-        Terraform Provisioned = "true"
+        Terraform_Provisioned = "true"
     }
 
 # Add custom bootstrap script to install and configure applications
