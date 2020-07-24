@@ -22,6 +22,12 @@ variable "aws-az" {
     }
 }
 
+variable "ebs-size" {
+    type        = number
+    default     = 150
+    description = "The EBS GB size of the DH server"
+}
+
 variable "server-size" {
     type        = string
     default     = "t2.large"
