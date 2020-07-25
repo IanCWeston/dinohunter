@@ -40,22 +40,27 @@ apt-get update && apt-get install filebeat
 ###########################
 # Velociraptor
 ###########################
+
+#Determine the latest version number
 echo "$(date +'%b %d %T'): installing Velociraptor" >> /home/ubuntu/dh-install.log
 cd /opt
 RELEASE=$(curl -s https://api.github.com/repos/Velocidex/velociraptor/releases/latest \
 | grep "tag_name" \
 | awk '{print substr($2, 2, length($2)-3)}') 
 
+#Download the latest release of Velociraptor
 wget https://github.com/Velocidex/velociraptor/releases/download/$RELEASE/velociraptor-$RELEASE-linux-amd64
 chmod +x velociraptor-$RELEASE-linux-amd64
 
+# Get the public dns name
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` 
 URL=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-hostname`
 
-/opt/velociraptor-$RELEASE-linux-amd64 config generate >> /opt/server.config.yaml --merge '{"Client":{"server_urls":["https://'$URL':8000/"]}}'
+#Configure the Server and Client configs
+/opt/velociraptor-$RELEASE-linux-amd64 config generate >> /opt/server.config.yaml --merge '{"Client":{"server_urls":["https://'$URL':8000/"],"use_self_signed_ssl":true},"API":{"hostname":"'$URL'"},"Frontend":{"hostname":"'$URL'"}}' 
+/opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml config client >> /opt/client.config.yaml
 
-sed "/filename_darwin: \/var\/tmp\/Velociraptor_Buffer.bin/q" /opt/server.config.yaml >> /opt/client.config.yaml
-
+#Add the admin user and start the front end in the background
 /opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml user add admin --role=administrator admin
 /opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml frontend &
 
