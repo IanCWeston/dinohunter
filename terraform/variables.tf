@@ -10,12 +10,6 @@ variable "aws-region" {
     description = "Region to launch DH assets in"
 }
 
-variable "aws-az" {
-    type        = string
-    default     = "a"
-    description = "Availability zone to launch the DH server in"
-}
-
 variable "ebs-size" {
     type        = number
     default     = 150
