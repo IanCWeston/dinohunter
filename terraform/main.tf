@@ -102,6 +102,10 @@ resource "aws_instance" "dh-server" {
 
     vpc_security_group_ids = [aws_security_group.allow-dh-server.id]
 
+    root_block_device {
+        volume_size = var.ebs-size # Default 150GB
+    }
+
     tags = {
         Name = "DH-Server"
         Terraform_Provisioned = "true"
