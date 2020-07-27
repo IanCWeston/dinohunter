@@ -76,23 +76,6 @@ resource "aws_eip" "dh_ip" {
     vpc      = true
 }
 
-# Create EBS volume for server
-resource "aws_ebs_volume" "dh-volume" {
-    availability_zone   = "${var.aws-region}${var.aws-az}" # Default us-east-1a
-    size                = var.ebs-size # Default 150GB
-
-    tags = {
-        Name = "DH-Server"
-    }
-}
-
-# Attach EBS volume to DH-Server
-resource "aws_volume_attachment" "dh_att" {
-    device_name = "/dev/sda1"
-    volume_id   = aws_ebs_volume.dh-volume.id
-    instance_id = aws_instance.dh-server.id 
-}
-
 # Create instance from Ubuntu AMI, add tags and link key/security group
 resource "aws_instance" "dh-server" {
     ami = data.aws_ami.ubuntu.id
