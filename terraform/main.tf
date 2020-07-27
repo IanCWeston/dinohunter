@@ -81,7 +81,6 @@ resource "aws_instance" "dh-server" {
     ami = data.aws_ami.ubuntu.id
     key_name = aws_key_pair.aws-dh-key.key_name
     instance_type = var.server-size # Default t2.large
-    availability_zone   = "${var.aws-region}${var.aws-az}" # Default us-east-1a
 
     vpc_security_group_ids = [aws_security_group.allow-dh-server.id]
 
