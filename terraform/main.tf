@@ -14,7 +14,7 @@ provider "aws" {
 
 # Security group for the DH Server
 resource "aws_security_group" "allow-dh-server" {
-    name = "DH_server"
+    name = "${var.server-name}-sec-group"
     description = "Allow Velociraptor/SSH ports inbound"
 
     ingress {
@@ -22,7 +22,7 @@ resource "aws_security_group" "allow-dh-server" {
         from_port   = local.ssh_port
         to_port     = local.ssh_port
         protocol    = local.tcp_protocol
-        cidr_blocks = local.all_ips
+        cidr_blocks = var.ssh-ingress-ips
     }
     
     ingress {
@@ -30,18 +30,18 @@ resource "aws_security_group" "allow-dh-server" {
         from_port   = local.velociraptor_agent_port
         to_port     = local.velociraptor_agent_port
         protocol    = local.tcp_protocol
-        cidr_blocks = local.all_ips
+        cidr_blocks = var.vr-agent-ingress-ips
     }
     
     egress {
         from_port   = local.any_port
         to_port     = local.any_port
         protocol    = local.any_protocol
-        cidr_blocks = local.all_ips
+        cidr_blocks = var.dh-server-egress-ips
     }
 
     tags = {
-        Name = "dh_server"
+        Name = var.server-name
         Terraform = true
     }
 
@@ -66,7 +66,7 @@ data "aws_ami" "ubuntu" {
 
 # Key pair for instance using the generated SSH key
 resource "aws_key_pair" "aws-dh-key" {
-    key_name   = "DH-Key"
+    key_name   = "${var.server-name}-key"
     public_key = tls_private_key.dh-server-key.public_key_openssh
 }
 
@@ -89,7 +89,7 @@ resource "aws_instance" "dh-server" {
     }
 
     tags = {
-        Name = "DH-Server"
+        Name = "${var.server-name}"
         Terraform_Provisioned = "true"
     }
 
@@ -123,7 +123,7 @@ provider "local" {
 # Generate a .pem file with the SSH private key and 400 permissions
 resource "local_file" "pem-key" {
     sensitive_content = tls_private_key.dh-server-key.private_key_pem
-    filename = "../connect/dh-server.pem"
+    filename = "../connect/${var.server-name}.pem"
     file_permission = "0400"
 }
 
@@ -137,6 +137,6 @@ resource "local_file" "connect-script" {
 #################################################
 
 echo "Connecting now..."
-ssh -i dh-server.pem -L 5601:localhost:5601 -L 8889:localhost:8889 ubuntu@${aws_eip.dh_ip.public_dns}
+ssh -i ${var.server-name}.pem -L 5601:localhost:5601 -L 8889:localhost:8889 ubuntu@${aws_eip.dh_ip.public_dns}
 EOT
 }
