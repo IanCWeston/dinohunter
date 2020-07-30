@@ -28,5 +28,28 @@ locals {
     any_port                = 0
     any_protocol            = -1
     tcp_protocol            = "tcp"
-    all_ips                 = ["0.0.0.0/0"]
+}
+
+variable "ssh-ingress-ips" {
+    type = list(string)
+    default = ["0.0.0.0/0"]
+    description = "List of IPs allowed to ssh to the dino instance"
+}
+
+variable "vr-agent-ingress-ips" {
+    type = list(string)
+    default = ["0.0.0.0/0"]
+    description = "List of IPs allowed to ssh to the dino instance"
+}
+
+variable "dh-server-egress-ips" {
+    type = list(string)
+    default = ["0.0.0.0/0"]
+    description = "List of IPs the vr instance is allowed to egress to"
+}
+
+variable "server-name" {
+    type = string
+    default = "dh_server"
+    description = "Name for the velociraptor dino hunter server"
 }
