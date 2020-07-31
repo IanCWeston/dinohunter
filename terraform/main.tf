@@ -95,7 +95,7 @@ resource "aws_instance" "dh-server" {
 
 # Add custom bootstrap script to install and configure applications
     user_data = file("${path.module}/config/user-data.sh")
-
+    
 }
 
 ###################
@@ -139,4 +139,30 @@ resource "local_file" "connect-script" {
 echo "Connecting now..."
 ssh -i ${var.server-name}.pem -L 5601:localhost:5601 -L 8889:localhost:8889 ubuntu@${aws_eip.dh_ip.public_dns}
 EOT
+}
+
+resource "null_resource" dh-server-config {
+    depends_on = [aws_instance.dh-server]    
+    connection {
+        type = "ssh"
+        host = aws_eip.dh_ip.public_dns
+        user = "ubuntu"
+        port = 22
+        agent = true
+        private_key = tls_private_key.dh-server-key.private_key_pem
+    }
+    
+    provisioner "file" {
+        source = "${path.module}/config/config.sh"
+        destination = "/home/ubuntu/config.sh"
+    }
+
+    provisioner "remote-exec" {
+        inline = ["chmod +x /home/ubuntu/config.sh","/home/ubuntu/config.sh",]
+    }
+    
+    provisioner "local-exec" {
+        command = "scp -i ../${var.server-name}-connect/${var.server-name}.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@${aws_eip.dh_ip.public_dns}:/home/ubuntu/client.config.yaml ../${var.server-name}-connect/client.config.yaml"
+
+    }
 }
