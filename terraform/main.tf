@@ -94,7 +94,7 @@ resource "aws_instance" "dh-server" {
     }
 
 # Add custom bootstrap script to install and configure applications
-    user_data = file("../config/user-data.sh")
+    user_data = file("${path.module}/config/user-data.sh")
 
 }
 
@@ -123,9 +123,8 @@ provider "local" {
 # Generate a .pem file with the SSH private key and 400 permissions
 resource "local_file" "pem-key" {
     sensitive_content = tls_private_key.dh-server-key.private_key_pem
-    filename = "../connect/${var.server-name}.pem"
-    file_permission = "0400"
-}
+    filename = "../${var.server-name}-connect/${var.server-name}.pem"
+
 
 resource "local_file" "connect-script" {
     filename = "../connect/connect.sh"
