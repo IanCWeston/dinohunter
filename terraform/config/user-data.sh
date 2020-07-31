@@ -63,5 +63,8 @@ URL=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest
 #Add the admin user and start the front end in the background
 /opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml user add admin --role=administrator admin
 /opt/velociraptor-$RELEASE-linux-amd64 --config /opt/server.config.yaml frontend &
+cp /opt/client.config.yaml /home/ubuntu/client.config.yaml
+chown ubuntu /home/ubuntu/client.config.yaml
+
 
 echo "$(date +'%b %d %T'): instalation complete: your server is now ready for use" >> /home/ubuntu/dh-install.log
