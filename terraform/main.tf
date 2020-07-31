@@ -124,10 +124,11 @@ provider "local" {
 resource "local_file" "pem-key" {
     sensitive_content = tls_private_key.dh-server-key.private_key_pem
     filename = "../${var.server-name}-connect/${var.server-name}.pem"
-
+    file_permission = "0400"
+}
 
 resource "local_file" "connect-script" {
-    filename = "../connect/connect.sh"
+    filename = "../${var.server-name}-connect/connect.sh"
     content = <<EOT
 #! /bin/bash 
 
