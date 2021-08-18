@@ -9,7 +9,6 @@ terraform {
 provider "aws" {
     region      = var.aws-region # Default us-east-1
     profile     = var.aws-cli-profile # Defaults to empty string
-    version = "~> 2.69"
 }
 
 # Security group for the DH Server
@@ -24,7 +23,7 @@ resource "aws_security_group" "allow-dh-server" {
         protocol    = local.tcp_protocol
         cidr_blocks = var.ssh-ingress-ips
     }
-    
+
     ingress {
         description  = "Allow Velociraptor Agent"
         from_port   = local.velociraptor_agent_port
@@ -32,7 +31,7 @@ resource "aws_security_group" "allow-dh-server" {
         protocol    = local.tcp_protocol
         cidr_blocks = var.vr-agent-ingress-ips
     }
-    
+
     egress {
         from_port   = local.any_port
         to_port     = local.any_port
@@ -89,13 +88,13 @@ resource "aws_instance" "dh-server" {
     }
 
     tags = {
-        Name = "${var.server-name}"
+        Name = var.server-name
         Terraform_Provisioned = "true"
     }
 
 # Add custom bootstrap script to install and configure applications
     user_data = file("${path.module}/config/user-data.sh")
-    
+
 }
 
 ###################
@@ -103,7 +102,7 @@ resource "aws_instance" "dh-server" {
 ###################
 
 provider "tls" {
-    version = "2.1.1"
+
 }
 
 # Generate a new SSH private key
@@ -117,7 +116,7 @@ resource "tls_private_key" "dh-server-key" {
 ###################
 
 provider "local" {
-    version = "1.4.0"
+
 }
 
 # Generate a .pem file with the SSH private key and 400 permissions
